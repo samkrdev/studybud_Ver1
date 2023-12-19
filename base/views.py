@@ -1,3 +1,4 @@
+from calendar import c
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -10,9 +11,18 @@ rooms = [
 
 def home(request):
     context = {'rooms':rooms}
-    return render(request,"home.html",context=context)
+    return render(request,"base/home.html",context=context)
     # return HttpResponse("Home Page")
 
-def room(request):
-    return render(request,"room.html")
+# def room(request):
+#     return render(request,"base/room.html")
+#     # return HttpResponse("This is a room")
+
+def room(request,pk):
+    room_ = None
+    for i in rooms:
+        if i['id'] == int(pk):
+            room_ = i
+    context = {'room':room_}
+    return render(request,"base/room.html",context=context)
     # return HttpResponse("This is a room")
